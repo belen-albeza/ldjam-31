@@ -52,6 +52,8 @@ var PlayScene = {
   },
 
   tick: function () {
+    _antro.tick();
+    _ui.panel.updateDOMElements();
     this.currentTick++;
   },
 
@@ -79,7 +81,21 @@ var PlayScene = {
 
   addListeners: function () {
     _ui.panel.onBuyBeer.add(function () {
-      _antro.buyBeer();
+      if (_antro.buyAlcohol('beer')) {
+        _ui.panel.updateDOMElements();
+      }
+    }, this);
+
+    _ui.panel.onBuyWine.add(function () {
+      if (_antro.buyAlcohol('wine')) {
+        _ui.panel.updateDOMElements();
+      }
+    }, this);
+
+    _ui.panel.onBuyVodka.add(function () {
+      if (_antro.buyAlcohol('vodka')) {
+        _ui.panel.updateDOMElements();
+      }
     }, this);
   }
 };

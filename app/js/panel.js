@@ -6,8 +6,13 @@ var _dom;
 function fetchDOMElements() {
   return {
     beerButton: document.querySelector('#beer button'),
+    beerProgress: document.querySelector('#beer progress'),
+
     wineButton: document.querySelector('#wine button'),
-    vodkaButton: document.querySelector('#vodka button')
+    wineProgress: document.querySelector('#wine progress'),
+
+    vodkaButton: document.querySelector('#vodka button'),
+    vodkaProgress: document.querySelector('#vodka progress')
   };
 }
 
@@ -19,13 +24,6 @@ function bindSignal(el, signal, evtName) {
   });
 }
 
-function updateDOMElements() {
-  if (!_dom || !_antro) { return; }
-
-  _dom.beerButton.innerHTML = 'Buy beer §' + _antro.PRICES.beer;
-  _dom.wineButton.innerHTML = 'Buy wine §' + _antro.PRICES.wine;
-  _dom.vodkaButton.innerHTML = 'Buy vodka §' + _antro.PRICES.vodka;
-}
 
 function Panel (antro) {
   _antro = antro;
@@ -43,7 +41,7 @@ function Panel (antro) {
 
   this.container = document.getElementById('panel');
   initSignals();
-  updateDOMElements();
+  this.updateDOMElements();
 }
 
 Panel.prototype.enable = function () {
@@ -52,6 +50,18 @@ Panel.prototype.enable = function () {
 
 Panel.prototype.cleanUp = function () {
   // TODO: remove event listeners
+};
+
+Panel.prototype.updateDOMElements = function () {
+  if (!_dom || !_antro) { return; }
+
+  _dom.beerButton.innerHTML = 'Buy beer §' + _antro.PRICES.beer;
+  _dom.wineButton.innerHTML = 'Buy wine §' + _antro.PRICES.wine;
+  _dom.vodkaButton.innerHTML = 'Buy vodka §' + _antro.PRICES.vodka;
+
+  _dom.beerProgress.value = _antro.availableAlcohol('beer');
+  _dom.wineProgress.value = _antro.availableAlcohol('wine');
+  _dom.vodkaProgress.value = _antro.availableAlcohol('vodka');
 };
 
 module.exports = Panel;
