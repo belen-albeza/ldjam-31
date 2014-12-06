@@ -37,7 +37,10 @@ var PlayScene = {
   },
 
   render: function () {
-    _ui.topBar.render();
+    _ui.topBar.render({
+      month: MONTHS[this.currentMonth],
+      antro: _antro
+    });
   },
 
   startGame: function () {
