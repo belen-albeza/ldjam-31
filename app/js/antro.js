@@ -4,6 +4,8 @@ var MIN_POPULATION = 1;
 var MAX_POPULATION = 100;
 var UNITS_PER_REFILL = 500;
 
+var BRAWL_BASE_ODD = 0.05;
+
 var _TICKS_PER_MONTH;
 var _game;
 
@@ -101,39 +103,13 @@ Antro.prototype.EARNINGS = {
 };
 
 Antro.prototype.tick = function () {
-  // HANDLE ALCOHOL and DRUNKENNESS
-  // consume beer
-  var beerPerHeavy =
-    this.EFFECTS.consume.beer * this.EFFECTS.waiterSales[this.staff.waiter];
-  this._consumeAlcohol('beer', beerPerHeavy);
-  var winePerHeavy =
-    this.EFFECTS.consume.wine * this.EFFECTS.waiterSales[this.staff.waiter];
-  this._consumeAlcohol('wine', winePerHeavy);
-  var vodkaPerHeavy =
-    this.EFFECTS.consume.vodka * this.EFFECTS.waiterSales[this.staff.waiter];
-  this._consumeAlcohol('vodka', vodkaPerHeavy);
-  // sober up…
-  this._soberUp();
-  // clamp values
-  this.stats.drunkenness = clamp(this.stats.drunkenness, 0, 1);
+  // compute changes
+  this._tickAlcohol();
+  this._tickHappiness();
+  this._tickPopulation();
+  this._tickBrawls();
 
-  // HANDLE HAPPINESS
-  this.stats.happiness += this._computeHappiness();
-  this.stats.happiness = clamp(this.stats.happiness, 0, 1);
-  console.log('happiness is', this.stats.happiness,
-    '(delta', this._computeHappiness(), ')');
-
-  // HANDLE BRAWLS
-
-  // HANDLE POPULATION
-  var populationDelta = this._computePopulation();
-  this.stats.population += populationDelta;
-  this.stats.population =
-    clamp(this.stats.population, MIN_POPULATION, MAX_POPULATION);
-  console.log('population is', this.stats.population,
-    '(delta', populationDelta, ')');
-
-  // PAY STAFF
+  // apply costs
   this._payStaff('waiter');
 };
 
@@ -160,6 +136,22 @@ Antro.prototype.availableAlcohol = function (which) {
   return this.alcohol[which] / UNITS_PER_REFILL;
 };
 
+Antro.prototype.getStatLevel = function (stat) {
+  var level;
+
+  if (stat < 0.3) {
+    level = 'low';
+  }
+  else if (stat < 0.8) {
+    level = 'mid';
+  }
+  else {
+    level = 'high';
+  }
+
+  return level;
+};
+
 Antro.prototype._canAfford = function (cost) {
   return this.stats.money >= cost;
 };
@@ -170,6 +162,59 @@ Antro.prototype._spend = function (cost) {
 
 Antro.prototype._earn = function (amount) {
   this.stats.money += Math.round(amount);
+};
+
+Antro.prototype._tickAlcohol = function () {
+  // consume drinks
+  var beerPerHeavy =
+    this.EFFECTS.consume.beer * this.EFFECTS.waiterSales[this.staff.waiter];
+  this._consumeAlcohol('beer', beerPerHeavy);
+  var winePerHeavy =
+    this.EFFECTS.consume.wine * this.EFFECTS.waiterSales[this.staff.waiter];
+  this._consumeAlcohol('wine', winePerHeavy);
+  var vodkaPerHeavy =
+    this.EFFECTS.consume.vodka * this.EFFECTS.waiterSales[this.staff.waiter];
+  this._consumeAlcohol('vodka', vodkaPerHeavy);
+  // sober up…
+  this._soberUp();
+  // clamp values
+  this.stats.drunkenness = clamp(this.stats.drunkenness, 0, 1);
+};
+
+Antro.prototype._tickHappiness = function () {
+  this.stats.happiness += this._computeHappiness();
+  this.stats.happiness = clamp(this.stats.happiness, 0, 1);
+  console.log('happiness is', this.stats.happiness,
+    '(delta', this._computeHappiness(), ')');
+};
+
+Antro.prototype._tickPopulation = function () {
+  var populationDelta = this._computePopulation();
+  this.stats.population += populationDelta;
+  this.stats.population =
+    clamp(this.stats.population, MIN_POPULATION, MAX_POPULATION);
+  console.log('population is', this.stats.population,
+    '(delta', populationDelta, ')');
+};
+
+Antro.prototype._tickBrawls = function () {
+  if (this._shallBrawlHappen()) {
+    // TODO: add bouncer mitigation
+    var gravity = _game.rnd.realInRange(0.7, 3) * this.stats.population;
+
+    var fine = Math.round(100 * gravity);
+    console.log('Brawl: fined with §' + fine);
+    this._spend(fine);
+
+    this.stats.happiness = 0;
+    console.log('Brawl: happiness reduced to', this.stats.happiness);
+
+    this.stats.population = MIN_POPULATION;
+    console.log('Brawl: population reduced to', this.stats.population);
+
+    window.alert(
+      'Brawl! Watch out the drunkenness level!\nThe police fined you §' + fine);
+  }
 };
 
 Antro.prototype._consumeAlcohol = function (which, amountPerHeavy) {
@@ -233,20 +278,14 @@ Antro.prototype._computePopulation = function () {
   return delta;
 };
 
-Antro.prototype.getStatLevel = function (stat) {
-  var level;
+Antro.prototype._shallBrawlHappen = function() {
+  var enoughHeavies = (this.stats.population >= 0.05 * MAX_POPULATION);
+  var odds = ((this.stats.population + this.stats.drunkenness * 100) / (2 * 100)) *
+    BRAWL_BASE_ODD;
 
-  if (stat < 0.3) {
-    level = 'low';
-  }
-  else if (stat < 0.8) {
-    level = 'mid';
-  }
-  else {
-    level = 'high';
-  }
+  console.log('brawl odds are', odds);
 
-  return level;
+  return enoughHeavies && _game.rnd.realInRange(0, 1) <= odds;
 };
 
 
