@@ -280,7 +280,8 @@ Antro.prototype._computePopulation = function () {
 
 Antro.prototype._shallBrawlHappen = function() {
   var enoughHeavies = (this.stats.population >= 0.05 * MAX_POPULATION);
-  var odds = ((this.stats.population + this.stats.drunkenness * 100) / (2 * 100)) *
+  var odds =
+    ((this.stats.population + this.stats.drunkenness * 100) / (2 * 100)) *
     BRAWL_BASE_ODD;
 
   console.log('brawl odds are', odds);
