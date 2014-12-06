@@ -20,7 +20,33 @@
   </header>
 
   <main>
-    <div id="game"></div>
+    <article class="wrapper">
+      <div id="game"></div>
+      <sidebar id="panel" style="display:none">
+        <section class="alcohol">
+          <ul>
+            <li>
+              <form id="beer" class="alcohol">
+                <button>Buy beer</button>
+                <progress value="0"></progress>
+              </form>
+            </li>
+            <li>
+              <form id="wine" class="alcohol">
+                <button>Buy wine</button>
+                <progress value="0"></progress>
+              </form>
+            </li>
+            <li>
+              <form id="vodka" class="alcohol">
+                <button>Buy vodka</button>
+                <progress value="0"></progress>
+              </form>
+            </li>
+          </ul>
+        </section>
+      </sidebar>
+    </article>
   </main>
   <footer>
     <p><strong>Ludum Dare #31</strong><br>

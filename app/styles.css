@@ -16,12 +16,38 @@ a {
   color: #c39;
 }
 
-div#game {
-  border: 1px solid #333;
+.wrapper {
   width: 102.4rem;
+  border: 1px solid #333;
   margin: 1rem auto;
+  vertical-align: top;
+  padding: 0;
+  background: #fff;
+  overflow: auto; /* clearfix */
+}
+
+div#game {
+  width: 70rem;
+  float: left;
+}
+
+sidebar {
+  width: 28.4rem;
+  background: #736399;
+  height: 60rem;
+  float: left;
+  padding: 0 2rem;
 }
 
 footer {
   text-align: center;
+}
+
+
+ul, ol {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
 }

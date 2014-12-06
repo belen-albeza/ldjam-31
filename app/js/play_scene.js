@@ -1,7 +1,8 @@
 'use strict';
 
-var antro = require('./antro.js');
+var Antro = require('./antro.js');
 var UIStats = require('./ui_stats.js');
+var Panel = require('./panel.js');
 
 
 var GAME_SPEED = {
@@ -14,14 +15,14 @@ var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
   'Sep', 'Nov', 'Dec'];
 var TICKS_PER_MONTH = 3;
 
+var _antro;
+var _ui;
+
 function setupUI(game) {
   // top bar with stats
-  var topBar = new UIStats(game, antro);
-
-  // right panel with buttons
-  var panel = game.add.group();
-  panel.position.setTo(700, 40);
-  panel.create(0, 0, 'panel');
+  var topBar = new UIStats(game, _antro);
+  // right control panel
+  var panel = new Panel(_antro);
 
   return { topBar: topBar, panel: panel };
 }
@@ -29,16 +30,19 @@ function setupUI(game) {
 
 var PlayScene = {
   create: function () {
-    this.ui = setupUI(this.game);
-    this.openAntro();
+    _antro = new Antro();
+    _ui = setupUI(this.game);
+    this.addListeners();
+    this.startGame();
   },
 
   render: function () {
-    this.ui.topBar.render();
+    _ui.topBar.render();
   },
 
-  openAntro: function () {
-    console.log('Antro opens!');
+  startGame: function () {
+    _ui.panel.enable();
+
     this.gameSpeed = GAME_SPEED.BALLAD;
 
     this.currentMonth = 0;
@@ -52,7 +56,6 @@ var PlayScene = {
   },
 
   onMonthEnd: function () {
-    console.log('* * * * *');
     console.log(MONTHS[this.currentMonth], 'ended after', this.currentTick,
       'ticks');
 
@@ -72,6 +75,12 @@ var PlayScene = {
     this.ticker.repeat(GAME_SPEED.BALLAD, TICKS_PER_MONTH, this.tick, this);
     this.ticker.onComplete.add(this.onMonthEnd, this);
     this.ticker.start();
+  },
+
+  addListeners: function () {
+    _ui.panel.onBuyBeer.add(function () {
+      _antro.buyBeer();
+    }, this);
   }
 };
 
