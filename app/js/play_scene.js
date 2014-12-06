@@ -1,12 +1,8 @@
 'use strict';
 
-// var Antro = require('./antro.js');
+var antro = require('./antro.js');
+var UIStats = require('./ui_stats.js');
 
-var UI_FONT_STYLE = {
-  font: '20px monospace',
-  fill: '#fff',
-  align: 'left'
-};
 
 var GAME_SPEED = {
   BALLAD: 1000,
@@ -20,25 +16,25 @@ var TICKS_PER_MONTH = 3;
 
 function setupUI(game) {
   // top bar with stats
-  var topBar = game.add.group();
-  topBar.create(0, 0, 'top_bar');
-
-  game.add.text(20, 20, 'H: 100', UI_FONT_STYLE, topBar).anchor.setTo(0, 0.5);
-  game.add.text(120, 20, 'D: 100', UI_FONT_STYLE, topBar).anchor.setTo(0, 0.5);
-  game.add.text(220, 20, '§: 999999', UI_FONT_STYLE, topBar)
-    .anchor.setTo(0, 0.5);
+  var topBar = new UIStats(game, antro);
 
   // right panel with buttons
   var panel = game.add.group();
   panel.position.setTo(700, 40);
   panel.create(0, 0, 'panel');
+
+  return { topBar: topBar, panel: panel };
 }
 
 
 var PlayScene = {
   create: function () {
-    setupUI(this.game);
+    this.ui = setupUI(this.game);
     this.openAntro();
+  },
+
+  render: function () {
+    this.ui.topBar.render();
   },
 
   openAntro: function () {
