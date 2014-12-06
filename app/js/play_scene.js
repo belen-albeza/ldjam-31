@@ -13,7 +13,7 @@ var GAME_SPEED = {
 
 var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
   'Sep', 'Nov', 'Dec'];
-var TICKS_PER_MONTH = 3;
+var TICKS_PER_MONTH = 30;
 
 var _antro;
 var _ui;
@@ -30,7 +30,7 @@ function setupUI(game) {
 
 var PlayScene = {
   create: function () {
-    _antro = new Antro(TICKS_PER_MONTH);
+    _antro = new Antro(this.game, TICKS_PER_MONTH);
     _ui = setupUI(this.game);
     this.addListeners();
     this.startGame();

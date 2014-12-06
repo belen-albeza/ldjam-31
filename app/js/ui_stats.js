@@ -34,7 +34,8 @@ UIStats.prototype.render = function (data) {
   this.texts.drunkenness.setText(
     '☣ ' + Math.round(data.antro.stats.drunkenness * 100) + '%');
   this.texts.money.setText('§' + data.antro.stats.money);
-  this.texts.population.setText('♥︎ ' + data.antro.stats.population);
+  this.texts.population.setText(
+    '♥︎ ' + Math.round(data.antro.stats.population));
 };
 
 module.exports = UIStats;
