@@ -15,7 +15,7 @@ function UIStats(game) {
 
   this.texts = {
     month: game.add.text(20, 20, 'Jan', UI_FONT_STYLE, this.group),
-    happiness: game.add.text(120, 20, '☺︎ 0', UI_FONT_STYLE, this.group),
+    happiness: game.add.text(120, 20, '☺︎ 0%', UI_FONT_STYLE, this.group),
     drunkenness: game.add.text(220, 20, '☣ 0%', UI_FONT_STYLE, this.group),
     population: game.add.text(320, 20, '♥︎ 0', UI_FONT_STYLE, this.group),
     money: game.add.text(420, 20, '§0', UI_FONT_STYLE, this.group)
@@ -29,7 +29,8 @@ function UIStats(game) {
 
 UIStats.prototype.render = function (data) {
   this.texts.month.setText(data.month);
-  this.texts.happiness.setText('☺︎ ' + data.antro.stats.happiness);
+  this.texts.happiness.setText(
+    '☺︎ ' + Math.round(data.antro.stats.happiness * 100) + '%');
   this.texts.drunkenness.setText(
     '☣ ' + Math.round(data.antro.stats.drunkenness * 100) + '%');
   this.texts.money.setText('§' + data.antro.stats.money);

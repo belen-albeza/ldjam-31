@@ -9,7 +9,7 @@ function Antro(ticksPerMonth) {
   _TICKS_PER_MONTH = ticksPerMonth;
 
   this.stats = {
-    happiness: 0,
+    happiness: 0.4,
     drunkenness: 0,
     money : 9999,
     population: 10
@@ -60,6 +60,15 @@ Antro.prototype.EFFECTS = {
     lazy: 0.75,
     normal: 1,
     epic: 1.5
+  },
+
+  happiness: {
+    base: 1 / 100,
+    drinking: {
+      low: -1,
+      mid: 0.5,
+      high: 1
+    }
   }
 };
 
@@ -88,6 +97,10 @@ Antro.prototype.tick = function () {
   // clamp values
   this.stats.drunkenness = Math.max(0, Math.min(this.stats.drunkenness, 1));
 
+  // HANDLE HAPPINESS
+  this.stats.happiness += this._computeHappiness();
+  this.stats.happiness = Math.max(0, Math.min(this.stats.happiness, 1));
+  console.log('happiness is', this.stats.happiness, '(delta', this._computeHappiness(), ')');
 
   // PAY STAFF
   this._payStaff('waiter');
@@ -157,6 +170,25 @@ Antro.prototype._payStaff = function (who) {
 
 Antro.prototype._soberUp = function () {
   this.stats.drunkenness += this.EFFECTS.drunkenness.base;
+};
+
+Antro.prototype._computeHappiness = function () {
+  var base = this.EFFECTS.happiness.base;
+
+  var drinkingLevel;
+  if (this.stats.drunkenness < 0.3) {
+    drinkingLevel = 'low';
+  }
+  else if (this.stats.drunkenness < 0.8) {
+    drinkingLevel = 'mid';
+  }
+  else {
+    drinkingLevel = 'high';
+  }
+
+  var delta = this.EFFECTS.happiness.drinking[drinkingLevel] * base;
+
+  return delta;
 };
 
 module.exports = Antro;
