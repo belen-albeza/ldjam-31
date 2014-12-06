@@ -83,20 +83,8 @@ var PlayScene = {
   },
 
   addListeners: function () {
-    _ui.panel.onBuyBeer.add(function () {
-      if (_antro.buyAlcohol('beer')) {
-        _ui.panel.updateDOMElements();
-      }
-    }, this);
-
-    _ui.panel.onBuyWine.add(function () {
-      if (_antro.buyAlcohol('wine')) {
-        _ui.panel.updateDOMElements();
-      }
-    }, this);
-
-    _ui.panel.onBuyVodka.add(function () {
-      if (_antro.buyAlcohol('vodka')) {
+    _ui.panel.onBuyAlcohol.add(function (data) {
+      if (_antro.buyAlcohol(data.which)) {
         _ui.panel.updateDOMElements();
       }
     }, this);

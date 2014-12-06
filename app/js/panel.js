@@ -28,7 +28,7 @@ function fetchDOMElements() {
   };
 }
 
-function bindSignal(el, signal, evtName, evtData) {
+function bindSignal(el, signal, evtData, evtName) {
   var eventName = evtName || 'click';
   var data = evtData || {};
 
@@ -45,12 +45,10 @@ function Panel (antro) {
 
   var initSignals = function () {
     // alcohol
-    this.onBuyBeer = new Phaser.Signal();
-    bindSignal(_dom.beerButton, this.onBuyBeer);
-    this.onBuyWine = new Phaser.Signal();
-    bindSignal(_dom.wineButton, this.onBuyWine);
-    this.onBuyVodka = new Phaser.Signal();
-    bindSignal(_dom.vodkaButton, this.onBuyVodka);
+    this.onBuyAlcohol = new Phaser.Signal();
+    bindSignal(_dom.beerButton, this.onBuyAlcohol, { which: 'beer'});
+    bindSignal(_dom.wineButton, this.onBuyAlcohol, { which: 'wine'});
+    bindSignal(_dom.vodkaButton, this.onBuyAlcohol, { which: 'vodka'});
 
     // waiters
     this.onHireWaiter = new Phaser.Signal();
@@ -59,7 +57,7 @@ function Panel (antro) {
       _dom.waiterRadioNormal,
       _dom.waiterRadioEpic
     ], function (x) {
-      bindSignal(x, this.onHireWaiter, 'change', { who: x.value });
+      bindSignal(x, this.onHireWaiter, { who: x.value }, 'change');
     }.bind(this));
   }.bind(this);
 
