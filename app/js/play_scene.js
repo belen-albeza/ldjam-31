@@ -38,7 +38,7 @@ var PlayScene = {
 
   render: function () {
     _ui.topBar.render({
-      month: MONTHS[this.currentMonth],
+      month: MONTHS[Math.min(this.currentMonth, MONTHS.length - 1)],
       antro: _antro
     });
   },
