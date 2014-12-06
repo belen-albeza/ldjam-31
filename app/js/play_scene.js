@@ -30,7 +30,7 @@ function setupUI(game) {
 
 var PlayScene = {
   create: function () {
-    _antro = new Antro();
+    _antro = new Antro(TICKS_PER_MONTH);
     _ui = setupUI(this.game);
     this.addListeners();
     this.startGame();
@@ -97,6 +97,10 @@ var PlayScene = {
         _ui.panel.updateDOMElements();
       }
     }, this);
+
+    _ui.panel.onHireWaiter.add(function (data) {
+      _antro.hireWaiter(data.who);
+    });
   }
 };
 

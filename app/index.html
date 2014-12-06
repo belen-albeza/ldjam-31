@@ -24,6 +24,7 @@
       <div id="game"></div>
       <sidebar id="panel" style="display:none">
         <section class="alcohol">
+          <h1>Booze</h1>
           <ul>
             <li>
               <form id="beer" class="alcohol">
@@ -44,7 +45,27 @@
               </form>
             </li>
           </ul>
-        </section>
+        </section><!-- staff -->
+        <section class="staff">
+          <h1>Staff</h1>
+          <form id="waiter">
+            <p>Waiter:</p>
+            <ul class="waiter">
+              <li>
+                <label><input type="radio" name="who" value="lazy" checked>Stoned<br>
+                  §<span class="price" id="waiter-price-lazy">0</span>/mo</label>
+              </li>
+              <li>
+                <label><input type="radio" name="who" value="normal">Lively<br>
+                  §<span class="price" id="waiter-price-normal">0</span>/mo</label>
+              </li>
+              <li>
+                <label><input type="radio" name="who" value="epic">Epic<br>
+                  §<span class="price" id="waiter-price-epic">0</span>/mo</label>
+              </li>
+            </ul>
+          </form>
+        </section><!-- staff -->
       </sidebar>
     </article>
   </main>

@@ -39,6 +39,19 @@ sidebar {
   padding: 0 2rem;
 }
 
+sidebar h1 {
+  border-bottom: 1px solid #fff;
+}
+
+.waiter li {
+  display: inline-block;
+  margin-left: 1.5rem;
+}
+
+.waiter li:first-child {
+  margin-left: 0;
+}
+
 footer {
   text-align: center;
 }
