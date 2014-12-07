@@ -1,9 +1,12 @@
 'use strict';
 
+var utils = require('./utils.js');
+
 var GameOverScene = {
   create: function () {
     this.game.add.sprite(0, 0, 'top_bar');
     this.game.add.sprite(0, 40, 'background');
+    this.game.add.sprite(280, 80, 'bar');
 
     var text = this.game.add.text(350, 200, 'You SUCK!', {
       font: '40px monospace',
@@ -24,6 +27,8 @@ var GameOverScene = {
       align: 'center'
     });
     text.anchor.setTo(0.5, 0);
+
+    utils.spawnRat(this.game);
 
     this.game.add.button(350, 450, 'retry', location.reload.bind(location))
       .anchor.setTo(0.5, 0);

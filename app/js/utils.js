@@ -39,5 +39,20 @@ module.exports = {
       alpha: 0
     }, 1000, Phaser.Easing.Sinusoidal.InOut);
     tween.start();
+  },
+
+  spawnRat: function (game) {
+    var rat = game.add.sprite(750, 450, 'rat');
+    rat.anchor.setTo(0.5, 0.5);
+    rat.animations.add('run');
+    rat.animations.play('run', 6, true);
+    var tween = game.add.tween(rat);
+    tween.to({
+      x: -50
+    }, 10000, Phaser.Easing.Default, true, 0, true, true);
+    tween.onLoop.add(function () {
+      rat.scale.x = rat.scale.x * -1; // flip sprite
+      rat.y = game.rnd.between(450, 550);
+    });
   }
 };

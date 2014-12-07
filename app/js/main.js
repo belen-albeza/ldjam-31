@@ -3,6 +3,7 @@
 var PlayScene = require('./play_scene.js');
 var WinScene = require('./win_scene.js');
 var GameOverScene = require('./gameover_scene.js');
+var IntroScene = require('./intro_scene.js');
 
 
 var BootScene = {
@@ -33,10 +34,13 @@ var PreloaderScene = {
     this.game.load.image('heavy01', 'images/heavy01.png');
     this.game.load.image('heavy02', 'images/heavy02.png');
     this.game.load.image('retry', 'images/retry.png');
+    this.game.load.image('play', 'images/play.png');
+
+    this.game.load.spritesheet('rat', 'images/rat.png', 68, 20);
   },
 
   create: function () {
-    this.game.state.start('play');
+    this.game.state.start('intro');
   }
 };
 
@@ -49,6 +53,7 @@ window.onload = function () {
   game.state.add('play', PlayScene);
   game.state.add('win', WinScene);
   game.state.add('gameover', GameOverScene);
+  game.state.add('intro', IntroScene);
 
   game.state.start('boot');
 };
