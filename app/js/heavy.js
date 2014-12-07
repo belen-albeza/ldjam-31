@@ -13,13 +13,12 @@ function Heavy(game, x, y) {
   this.tween = this.game.add.tween(this);
 
   this.init();
-};
+}
 
 Heavy.prototype = Object.create(Phaser.Sprite.prototype);
 Heavy.prototype.constructor = Heavy;
 
 Heavy.prototype.init = function () {
-  this.z = this.y;
   this.tween.stop(); // stop any previous tween (from a recycled slot)
 };
 

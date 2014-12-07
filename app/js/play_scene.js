@@ -38,7 +38,7 @@ var PlayScene = {
     decoration.position.setTo(0, 40);
     decoration.create(0, 0, 'background');
 
-    this.waiter = decoration.create(600, 206, 'waiter')
+    this.waiter = decoration.create(600, 206, 'waiter');
     this.waiter.anchor.setTo(0.5, 0.5);
 
     var waiterTween = this.game.add.tween(this.waiter);

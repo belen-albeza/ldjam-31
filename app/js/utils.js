@@ -10,7 +10,9 @@ module.exports = {
     }
     // if there is not slot available, create a new sprite
     else {
+      /*jshint -W055 */
       group.add(new klass(group.game, x, y));
+      /*jshint +W055 */
     }
     console.log('spawned', klass, 'at', x, y);
   }

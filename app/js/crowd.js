@@ -28,14 +28,14 @@ function Crowd(game, antro) {
 
   this.antro = antro;
   _game = game;
-};
+}
 
 Crowd.prototype.update = function () {
-  // handle population
   var delta = this.antro.stats.population - this.count();
   if (delta > 0) {
     var position = randomPosition();
     utils.spawnSprite(this.group, Heavy, position.x, position.y);
+    this._reorderGroup();
   }
   else if (delta < 0) {
     var heavy = this.group.getFirstAlive();
@@ -46,6 +46,12 @@ Crowd.prototype.update = function () {
 Crowd.prototype.count = function () {
   return this.group.filter(function () { return true; }, true).total;
 };
+
+Crowd.prototype._reorderGroup = function () {
+  this.group.customSort(function (a, b) {
+    return (a.y - b.y);
+  });
+}
 
 
 module.exports = Crowd;
