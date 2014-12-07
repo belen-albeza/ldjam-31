@@ -1,7 +1,7 @@
 'use strict';
 
 var Antro = require('./antro.js');
-var Heavy = require('./heavy.js');
+var Crowd = require('./crowd.js');
 var UIStats = require('./ui_stats.js');
 var Panel = require('./panel.js');
 
@@ -48,13 +48,11 @@ var PlayScene = {
 
     decoration.create(280, 40, 'bar');
 
-    var heavies = this.game.add.group();
-    heavies.position.setTo(0, 372);
-
-    this.spawnSprite(heavies, Heavy, 50, 0);
+    this.crowd = new Crowd(this.game, _antro);
 
     this.addListeners();
     this.startGame();
+    this.crowd.update();
   },
 
   render: function () {
@@ -78,6 +76,7 @@ var PlayScene = {
   tick: function () {
     _antro.tick();
     _ui.panel.updateDOMElements();
+    this.crowd.update();
     this.currentTick++;
   },
 
@@ -113,19 +112,6 @@ var PlayScene = {
     _ui.panel.onHireWaiter.add(function (data) {
       _antro.hireWaiter(data.who);
     });
-  },
-
-  spawnSprite: function (group, klass, x, y) {
-    var instance = group.getFirstExists(false);
-    // reuse existing slot if available
-    if (instance) {
-      instance.reset(x, y);
-      if (instance.init) { instance.init(); }
-    }
-    // if there is not slot available, create a new sprite
-    else {
-      group.add(new klass(this.game, x, y));
-    }
   }
 };
 
