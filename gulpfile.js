@@ -58,7 +58,7 @@ gulp.task('lintedBrowserify', ['lint'], function () {
 
 gulp.task('copyTmp', function () {
   var dir = './node_modules/phaser/build';
-  gulp.src(['phaser.min.js', 'phaser.map'], { cwd: dir, base: dir})
+  gulp.src(['phaser.min.js', 'phaser.map', 'phaser.js'], { cwd: dir, base: dir})
     .pipe(gulp.dest('./.tmp/js/'));
 });
 
@@ -68,7 +68,12 @@ gulp.task('copy', ['lintedBrowserify', 'copyTmp'], function () {
   ], { cwd: './app', base: './app' })
   .pipe(gulp.dest('./dist/'));
 
-  gulp.src(['js/phaser.min.js', 'js/bundle.js'], { cwd: '.tmp', base: '.tmp' })
+  gulp.src([
+    'js/phaser.min.js',
+    'js/phaser.map',
+    'js/phaser.js',
+    'js/bundle.js'
+  ], { cwd: '.tmp', base: '.tmp' })
     .pipe(gulp.dest('./dist/'));
 });
 
