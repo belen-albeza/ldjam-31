@@ -22,7 +22,7 @@ a {
   margin: 1rem auto;
   vertical-align: top;
   padding: 0;
-  background: #fff;
+  background: rgb(95,76,137);
   overflow: auto; /* clearfix */
 }
 

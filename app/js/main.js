@@ -1,6 +1,7 @@
 'use strict';
 
 var PlayScene = require('./play_scene.js');
+var WinScene = require('./win_scene.js');
 
 
 var BootScene = {
@@ -44,6 +45,7 @@ window.onload = function () {
   game.state.add('boot', BootScene);
   game.state.add('preloader', PreloaderScene);
   game.state.add('play', PlayScene);
+  game.state.add('win', WinScene);
 
   game.state.start('boot');
 };

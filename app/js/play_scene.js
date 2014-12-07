@@ -15,7 +15,7 @@ var GAME_SPEED = {
 
 var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
   'Sep', 'Nov', 'Dec'];
-var TICKS_PER_MONTH = 30;
+var TICKS_PER_MONTH = 300;
 
 var BANNER_POSITION = {
   waiter: { x: 570, y: 150 },
@@ -98,7 +98,8 @@ var PlayScene = {
     this.currentTick = 0;
     if (this.currentMonth >= MONTHS.length) {
       // end of game
-      console.log('END GAME');
+      _ui.panel.disable();
+      this.game.state.start('win');
     }
     else {
       this.startMonthTimer();

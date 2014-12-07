@@ -70,6 +70,10 @@ Panel.prototype.enable = function () {
   this.container.style.display = 'block';
 };
 
+Panel.prototype.disable = function () {
+  this.container.style.display = 'none';
+};
+
 Panel.prototype.cleanUp = function () {
   // TODO: remove event listeners
 };
