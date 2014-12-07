@@ -2,6 +2,7 @@
 
 var PlayScene = require('./play_scene.js');
 var WinScene = require('./win_scene.js');
+var GameOverScene = require('./gameover_scene.js');
 
 
 var BootScene = {
@@ -31,6 +32,7 @@ var PreloaderScene = {
     this.game.load.image('heavy00', 'images/heavy00.png');
     this.game.load.image('heavy01', 'images/heavy01.png');
     this.game.load.image('heavy02', 'images/heavy02.png');
+    this.game.load.image('retry', 'images/retry.png');
   },
 
   create: function () {
@@ -46,6 +48,7 @@ window.onload = function () {
   game.state.add('preloader', PreloaderScene);
   game.state.add('play', PlayScene);
   game.state.add('win', WinScene);
+  game.state.add('gameover', GameOverScene);
 
   game.state.start('boot');
 };

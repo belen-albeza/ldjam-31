@@ -15,7 +15,7 @@ var GAME_SPEED = {
 
 var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
   'Sep', 'Nov', 'Dec'];
-var TICKS_PER_MONTH = 300;
+var TICKS_PER_MONTH = 30;
 
 var BANNER_POSITION = {
   waiter: { x: 570, y: 150 },
@@ -96,10 +96,13 @@ var PlayScene = {
 
     this.currentMonth++;
     this.currentTick = 0;
-    if (this.currentMonth >= MONTHS.length) {
-      // end of game
+    if (this.currentMonth >= MONTHS.length) { // victory
       _ui.panel.disable();
       this.game.state.start('win');
+    }
+    else if (_antro.stats.money < 0) { // game over
+      _ui.panel.disable();
+      this.game.state.start('gameover');
     }
     else {
       this.startMonthTimer();
