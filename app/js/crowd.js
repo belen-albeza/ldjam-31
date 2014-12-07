@@ -51,7 +51,7 @@ Crowd.prototype._reorderGroup = function () {
   this.group.customSort(function (a, b) {
     return (a.y - b.y);
   });
-}
+};
 
 
 module.exports = Crowd;

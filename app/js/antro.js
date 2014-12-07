@@ -33,6 +33,8 @@ function Antro(game, ticksPerMonth) {
   this.staff = {};
 
   this.hireWaiter('lazy');
+  this.onSpend = new Phaser.Signal();
+  this.onEarn = new Phaser.Signal();
 }
 
 Antro.prototype.PRICES = {
@@ -118,6 +120,11 @@ Antro.prototype.buyAlcohol = function (which) {
   if (this._canAfford(cost)) {
     this.alcohol[which] = UNITS_PER_REFILL;
     this._spend(cost);
+    this.onSpend.dispatch({
+      concept: 'purchase',
+      amount: cost,
+      msg: '-§' + Math.round(cost)
+    });
     console.log('Bought', which, '-§' + cost);
     return true;
   }
@@ -224,14 +231,21 @@ Antro.prototype._consumeAlcohol = function (which, amountPerHeavy) {
     this.PRICES.alcohol[which] / UNITS_PER_REFILL;
 
   this.alcohol[which] -= consumed;
-  this._earn(moneyPerUnit * consumed);
+  var money = moneyPerUnit * consumed;
+  this._earn(money);
 
   if (consumed > 0) {
     this.stats.drunkenness += this.EFFECTS.drunkenness[which];
+
+    this.onEarn.dispatch({
+      concept: which + 'Sale',
+      amount: Math.round(money),
+      msg: '+§' + Math.round(money)
+    });
   }
 
   console.log('Sold', consumed.toFixed(2), which,
-    '+§' + Math.round(moneyPerUnit * consumed));
+    '+§' + Math.round(money));
 };
 
 Antro.prototype._payStaff = function (who) {
@@ -239,8 +253,12 @@ Antro.prototype._payStaff = function (who) {
   if (who === 'waiter') {
     salary = this.PRICES.staff.waiter[this.staff.waiter] / _TICKS_PER_MONTH;
     this._spend(salary);
-    who = this.staff.waiter + ' ' + who;
   }
+  this.onSpend.dispatch({
+    amount: salary,
+    concept: who,
+    msg: '-§' + Math.round(salary)
+  });
   console.log('Paid', who +'. -§' + Math.round(salary));
 };
 

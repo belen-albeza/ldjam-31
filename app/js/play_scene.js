@@ -4,6 +4,7 @@ var Antro = require('./antro.js');
 var Crowd = require('./crowd.js');
 var UIStats = require('./ui_stats.js');
 var Panel = require('./panel.js');
+var utils = require('./utils.js');
 
 
 var GAME_SPEED = {
@@ -15,6 +16,14 @@ var GAME_SPEED = {
 var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
   'Sep', 'Nov', 'Dec'];
 var TICKS_PER_MONTH = 30;
+
+var BANNER_POSITION = {
+  waiter: { x: 570, y: 150 },
+  purchase: { x: 420, y: 50 },
+  beerSale: { x: 365, y: 185 },
+  wineSale: { x: 460, y: 80 },
+  vodkaSale: { x: 640, y: 80 }
+};
 
 var _antro;
 var _ui;
@@ -53,6 +62,7 @@ var PlayScene = {
     this.addListeners();
     this.startGame();
     this.crowd.update();
+
   },
 
   render: function () {
@@ -111,7 +121,22 @@ var PlayScene = {
 
     _ui.panel.onHireWaiter.add(function (data) {
       _antro.hireWaiter(data.who);
-    });
+    }, this);
+
+    _antro.onSpend.add(function (data) {
+      var position = BANNER_POSITION[data.concept];
+      utils.popupBanner(this.game, position.x, position.y, data.msg, {
+        fill: '#f00'
+      });
+    }, this);
+
+    _antro.onEarn.add(function (data) {
+      // TODO: refactor with previous block
+      var position = BANNER_POSITION[data.concept];
+      utils.popupBanner(this.game, position.x, position.y, data.msg, {
+        fill: '#0f0'
+      });
+    }, this);
   }
 };
 
