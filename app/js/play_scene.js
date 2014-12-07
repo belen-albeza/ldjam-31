@@ -32,6 +32,21 @@ var PlayScene = {
   create: function () {
     _antro = new Antro(this.game, TICKS_PER_MONTH);
     _ui = setupUI(this.game);
+
+    var decoration = this.game.add.group();
+    decoration.position.setTo(0, 40);
+    decoration.create(0, 0, 'background');
+
+    this.waiter = decoration.create(600, 206, 'waiter')
+    this.waiter.anchor.setTo(0.5, 0.5);
+
+    var waiterTween = this.game.add.tween(this.waiter);
+    waiterTween.to({
+      y: this.waiter.y + 4
+    }, 500, Phaser.Easing.Default, true, 0, -1, true);
+
+    decoration.create(280, 40, 'bar');
+
     this.addListeners();
     this.startGame();
   },

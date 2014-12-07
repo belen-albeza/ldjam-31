@@ -24,6 +24,9 @@ var PreloaderScene = {
     // load here the assets for the game
     this.game.load.image('top_bar', 'images/top_bar.png');
     this.game.load.image('panel', 'images/right_panel.png');
+    this.game.load.image('background', 'images/background.png');
+    this.game.load.image('bar', 'images/bar.png');
+    this.game.load.image('waiter', 'images/waiter.png');
   },
 
   create: function () {
