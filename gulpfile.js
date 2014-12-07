@@ -64,7 +64,7 @@ gulp.task('copyTmp', function () {
 
 gulp.task('copy', ['lintedBrowserify', 'copyTmp'], function () {
   gulp.src([
-    'index.html', 'styles.css', 'images/**/*', 'fonts/**/*'
+    'index.html', 'styles.css', 'images/**/*', 'fonts/**/*', 'sound/**/*'
   ], { cwd: './app', base: './app' })
   .pipe(gulp.dest('./dist/'));
 
