@@ -26,3 +26,9 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# custom project ignore
+.tmp
+*.sublime-*
+dist
+gulp.config.json

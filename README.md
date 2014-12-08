@@ -44,6 +44,3 @@ gulp deploy
 © 2014 Belén "Benko" Albeza
 
 Unless otherwise stated, this game is published under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. See `LICENSE` for details.
-
-
-

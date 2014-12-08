@@ -1,0 +1,66 @@
+html {
+  font-size: 10px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Courier, 'Courier New', monospace;
+  font-size: 1.6rem;
+  background: #000;
+  color: #fff;
+}
+
+a {
+  color: #c39;
+}
+
+.wrapper {
+  width: 102.4rem;
+  border: 1px solid #333;
+  margin: 1rem auto;
+  vertical-align: top;
+  padding: 0;
+  background: rgb(95,76,137);
+  overflow: auto; /* clearfix */
+}
+
+div#game {
+  width: 70rem;
+  float: left;
+}
+
+sidebar {
+  width: 28.4rem;
+  background: #736399;
+  height: 60rem;
+  float: left;
+  padding: 0 2rem;
+}
+
+sidebar h1 {
+  border-bottom: 1px solid #fff;
+}
+
+.waiter li {
+  display: inline-block;
+  margin-left: 1.5rem;
+}
+
+.waiter li:first-child {
+  margin-left: 0;
+}
+
+footer {
+  text-align: center;
+}
+
+
+ul, ol {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+}
