@@ -32,9 +32,6 @@ var IntroScene = {
     this.game.add.button(350, 380, 'play', function () {
       this.game.state.start('play');
     }, this).anchor.setTo(0.5, 0);
-
-    var music = this.game.add.audio('bgm');
-    music.play('', 0, 1, true); // loop sound
   }
 };
 

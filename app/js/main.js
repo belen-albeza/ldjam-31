@@ -40,10 +40,6 @@ var PreloaderScene = {
     this.game.load.image('icon_happiness', 'images/icon_happiness.png');
 
     this.game.load.spritesheet('rat', 'images/rat.png', 68, 20);
-    this.game.load.audio('bgm', [
-      'sound/bgm01_altrock.mp3',
-      'sound/bgm01_altrock.ogg'
-    ]);
   },
 
   create: function () {
