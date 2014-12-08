@@ -35,6 +35,9 @@ var PreloaderScene = {
     this.game.load.image('heavy02', 'images/heavy02.png');
     this.game.load.image('retry', 'images/retry.png');
     this.game.load.image('play', 'images/play.png');
+    this.game.load.image('icon_population', 'images/icon_population.png');
+    this.game.load.image('icon_beer', 'images/icon_beer.png');
+    this.game.load.image('icon_happiness', 'images/icon_happiness.png');
 
     this.game.load.spritesheet('rat', 'images/rat.png', 68, 20);
     this.game.load.audio('bgm', [
