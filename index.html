@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <title>Ludum Dare #31 - by @ladybenko</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no,
+    minimum-scale=1.0, maximum-scale=1.0" />
+
+  <link href="styles.css" rel="stylesheet" type="text/css">
+  <script src="js/phaser.min.js"></script>
+  <script src="js/bundle.js"></script>
+</head>
+<body>
+  <header>
+    <a href="https://github.com/belen-albeza/ldjam-31">
+      <img style="position: absolute; top: 0; right: 0; border: 0;"
+        src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+        alt="Fork me on GitHub">
+    </a>
+  </header>
+
+  <main>
+    <article class="wrapper">
+      <div id="game"></div>
+      <sidebar id="panel" style="display:none">
+        <section class="alcohol">
+          <h1>Booze</h1>
+          <ul>
+            <li>
+              <form id="beer" class="alcohol">
+                <button>Buy beer</button>
+                <progress value="0"></progress>
+              </form>
+            </li>
+            <li>
+              <form id="wine" class="alcohol">
+                <button>Buy wine</button>
+                <progress value="0"></progress>
+              </form>
+            </li>
+            <li>
+              <form id="vodka" class="alcohol">
+                <button>Buy vodka</button>
+                <progress value="0"></progress>
+              </form>
+            </li>
+          </ul>
+        </section><!-- staff -->
+        <section class="staff">
+          <h1>Staff</h1>
+          <form id="waiter">
+            <p>Waiter:</p>
+            <ul class="waiter">
+              <li>
+                <label><input type="radio" name="who" value="lazy" checked>Lazy<br>
+                  §<span class="price" id="waiter-price-lazy">0</span>/mo</label>
+              </li>
+              <li>
+                <label><input type="radio" name="who" value="normal">Lively<br>
+                  §<span class="price" id="waiter-price-normal">0</span>/mo</label>
+              </li>
+              <li>
+                <label><input type="radio" name="who" value="epic">Epic<br>
+                  §<span class="price" id="waiter-price-epic">0</span>/mo</label>
+              </li>
+            </ul>
+          </form>
+        </section><!-- staff -->
+      </sidebar>
+    </article>
+  </main>
+  <footer>
+    <p><strong>Ludum Dare #31</strong><br>
+      by <a href="http://www.belenalbeza.com">@ladybenko</a></p>
+    <p class="license">© 2014 Belén Albeza.
+      Published under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      CC BY-NC-SA 4.0</a> license.</p>
+  </footer>
+</body>
+</html>
+
