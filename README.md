@@ -4,7 +4,7 @@ This is my entry for [Ludum Dare #31](http://ludumdare.com/), a 48-hour solo gam
 
 ## Play!
 
-[Play the game here](http://lab.belenalbeza.com/games/ldjam-31/).
+[Play the game here](https://belen-albeza.github.io/ldjam-31/).
 
 ## Development
 
